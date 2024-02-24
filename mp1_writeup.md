@@ -61,7 +61,7 @@ After compiling the code, we wanted to observe how the registers and stack chang
 
    ![alt text](assets/image-8.png)
 
-This is all the reconnaissance that is needed before we start our stack smashing. We were able to identify the positions of the base pointer `$ebp` and the return instruction `rip`, relative to the address of the `buffer`.
+This is all the reconnaissance that is needed before we start our stack smashing. We were able to identify the positions of the base pointer `$ebp` and the return instruction pointer `rip`, relative to the address of the `buffer`.
 
 To summarize, here is a visualization of our current state of stack after allocation memory of the buffer:
 
