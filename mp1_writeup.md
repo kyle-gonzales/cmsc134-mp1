@@ -27,6 +27,7 @@ This issue arose because on 64-bit platforms, gcc typically includes 64-bit libr
 After compiling the code, we wanted to observe how the registers and stack changes throughout the execution of the program. This helped us reaacquaint ourselves with the stack and CPU regiseters during x86 function execution.
 
 1. From our lecture, we learned that before `$eip` jumps to `vuln()`'s instructions, the next instruction of `main()` is pushed to the stack - the `rip`. We were able to verify this:
+
    ![alt text](assets/image-11.png)
 
    The `rip` (`0x565561ba`) is stored in the stack at the address `0xffffcde4`
@@ -48,11 +49,11 @@ After compiling the code, we wanted to observe how the registers and stack chang
    0x5655619e <+1>:     mov    %esp,%ebp
    ```
 
-   This also means that ebp is pointing to the address that holds the sfp, as shown below.
+   This also means that ebp is pointing to the address that holds the sfp, as shown below:
 
    ![alt text](assets/image-5.png)
 
-4. Now, for the actual C code. We allocate 8 bytes for the `buffer` by decrementing `$esp`. This means that the stack pointer (and the address of the `buffer`) should be 8 bytes below `$ebp`, `0xffffcdd8`, as shown below.
+4. Now, for the actual C code. We allocate 8 bytes for the `buffer` by decrementing `$esp`. This means that the stack pointer (and the address of the `buffer`) should be 8 bytes below `$ebp`, `0xffffcdd8`, as shown below:
 
    ![alt text](assets/image-8.png)
 
