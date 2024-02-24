@@ -7,6 +7,10 @@ _Pulvera, Eusib Vincent_
 
 ---
 
+In this machine problem, our team delved into the realm of memory safety, specifically focusing on a stack smashing attack. This type of attack poses a significant threat in unsafe code due to its potential to exploit vulnerabilities in a program, allowing unauthorized access and abuse. The danger lies in the unauthorized manipulation of the program's execution flow, highlighting the critical need for robust security measures to safeguard against such attacks.
+
+The task involved exploiting vulnerabilities in a C program to achieve an unauthorized termination with a specific exit code. This write-up covers our thought process and strategies as we compiled the given code, inspected the stack memory and CPU registers, and wrote shellcode in preparation for the stack smashing attack.
+
 ### Compiling the Code
 
 In our initial attempt to perform the machine problem on a Windows machine, we encountered an error related to a missing compilation flag. It became apparent that a Linux environment was necessary for successful execution. We transitioned to WSL Ubuntu for compatibility and convenience.
@@ -140,14 +144,24 @@ We wrote the shellcode into a file called `egg`. Then, we ran `vuln` in gdb, pas
 
 ![alt text](assets/image-10.png)
 
-The program was successfully terminated with an exit code of 1.
+**The program was successfully terminated with an exit code of 1.**
 
 ### Reviewing the Attack
 
-We stepped through the execution of the program to view the registers after the buffer overload.
+We stepped through the execution of the program to view the registers after the buffer overload and verify the success of the stack smashing attack
 
 ![alt text](assets/image-12.png)
 
 ![alt text](assets/image-16.png)
 
+As shown in the figure above, the `rip` was overwritten with the address to `buffer`. Our stack smashing attack was successful!
+
 ### Conclusion
+
+Our journey through this machine problem was not without its share of challenges. One notable hurdle was familiarizing ourselves with gdb and interpreting the console outputs of each command. While we had a high-level understanding of stack operations and stack smashing attacks, navigating the sea of memory addresses and hexadecimal values proved overwhelming at times.
+
+Moreover, we struggled with the idea of little-endian encoding. At first, we considered writing instructions in reverse order, only to later realize that x86 instructions are processed as a sequence of bytes and little-endian encoding is only used for multi-byte values like addresses.
+
+Despite these challenges, the machine problem provided valuable insights. We recognized the ease with which memory could be accessed through unsafe code, emphasizing the importance of mitigating vulnerabilities. Writing memory-safe code using compiler hardening defenses or opting for memory-safe programming languages emerged as crucial practices in safeguarding against potential disasters.
+
+In conclusion, this machine problem has not only deepened our understanding of stack smashing attacks but has also reinforced our learnings from lectures. Navigating through the x86 function call process and comprehending memory exploitations, including stack smashing attacks and malicious code injection, has been a valuable aspect of our cybersecurity education. This hands-on experience has further strengthened our ability to identify and address potential security threats, emphasizing the importance of proactive measures in securing software systems.
